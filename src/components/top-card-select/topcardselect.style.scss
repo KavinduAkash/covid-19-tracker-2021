@@ -1,18 +1,22 @@
-.topcard {
+.topcardselect {
   display: flex;
   justify-content: center;
   padding: 25px;
-  .topcard__image {
+  .topcardselect__image {
     padding: 5px;
   }
-  .topcard__data {
+  .topcardselect__data {
     .data_title {
       font-weight: lighter;
       font-size: 15px;
     }
-    .data_value {
-      font-weight: bold;
-      font-size: 30px;
+    .data_select{
+      margin-top: 5px;
+      margin-bottom: 5px;
+      .selection {
+        border: 0px!important;
+        padding-left: 0px!important;
+      }
     }
     .data_desc {
       font-weight: lighter;
