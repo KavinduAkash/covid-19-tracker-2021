@@ -1,0 +1,17 @@
+.app {
+  .app__top {
+    width: 100vw;
+    height: 40vh;
+    background-image: url("./assets/top-background.jpg");
+    color: white;
+    .header {
+      font-weight: bold;
+      font-size: 25px;
+      padding: 25px;
+      .header-light{
+        font-weight: lighter;
+        font-size: 12px;
+      }
+    }
+  }
+}
