@@ -12,7 +12,7 @@ class TopCard extends React.Component{
             <div className={'topcard'}>
                 <div className={'topcard__image'}>
                     {
-                        index===1?<img src={Covid19Icon1} alt=""/>:index===2?<img src={Covid19Icon2} alt=""/>:index===3?<img src={Covid19Icon3} alt=""/>:null
+                        index===1?<img src={Covid19Icon3} alt=""/>:index===2?<img src={Covid19Icon2} alt=""/>:index===3?<img src={Covid19Icon1} alt=""/>:null
                     }
                 </div>
                 <div  className={'topcard__data'}>

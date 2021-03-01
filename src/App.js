@@ -5,6 +5,7 @@ import TopCard from "./components/top-card/TopCard.component";
 import TopCardSelect from "./components/top-card-select/topcardselect.component";
 import {Input} from "semantic-ui-react";
 import LiveCaseCountryCard from "./components/live-case-country-card/LiveCaseCountryCard.component";
+import Linerchart from "./components/charts/Linerchart.component";
 
 class App extends React.Component{
 
@@ -59,9 +60,10 @@ class App extends React.Component{
                                         <LiveCaseCountryCard/>
                                         <LiveCaseCountryCard/>
                                     </div>
-                                    <div className={'sub-title'}>
-                                        Live cases by country
+                                    <div className={'sub-title mg'}>
+                                        Worldwide new cases
                                     </div>
+                                    <Linerchart/>
                                 </div>
                             </Col>
                         </Row>
