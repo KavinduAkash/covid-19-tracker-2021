@@ -17,7 +17,17 @@
     }
   }
 
-  .app__content {}
+  .app__content {
+    width: 100vw;
+    min-height: 60vh;
+    .content {
+      width: 1400px;
+      padding: 40px;
+      background: white;
+      margin: auto auto 50px auto;
+      background: dimgray;
+    }
+  }
 
   .app__footer {
     position: absolute;
