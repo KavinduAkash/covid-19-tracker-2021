@@ -1,4 +1,6 @@
 .app {
+  position: relative;
+  overflow: hidden;
   .app__top {
     width: 100vw;
     height: 40vh;
@@ -11,6 +13,31 @@
       .header-light{
         font-weight: lighter;
         font-size: 12px;
+      }
+    }
+  }
+
+  .app__content {}
+
+  .app__footer {
+    position: absolute;
+    width: 100vw;
+    height: 50px;
+    background-image: url("./assets/top-background.jpg");
+    bottom: 0;
+    .footer {
+      position: relative;
+      top: 30%;
+
+      width: 100vw;
+      height: fit-content;
+      font-weight: bold;
+      font-size: 15px;
+      color: white;
+      text-align: center;
+      .footer-light {
+        font-weight: lighter;
+        font-size: 8px;
       }
     }
   }
