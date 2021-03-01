@@ -26,6 +26,13 @@
       background: white;
       margin: auto auto 50px auto;
       background: dimgray;
+      .card-panel {
+        width: 100%;
+        background: white;
+        border-radius: 10px;
+        height: 150px;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+      }
     }
   }
 

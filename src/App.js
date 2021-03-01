@@ -14,6 +14,8 @@ class App extends React.Component{
             </div>
             <div className={'app__content'}>
                 <div className={'content'}>
+                    <div className={'card-panel'}>
+                    </div>
                     <Row>
                         <Col sm={12} md={12} lg={8} xl={8}>
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea facere fugit itaque modi perspiciatis qui quo tenetur? Dolorum ex itaque nemo odio odit omnis, quasi, quod, reiciendis ullam vero voluptatibus.
