@@ -1,0 +1,20 @@
+.topcard {
+  display: flex;
+  background: dodgerblue;
+  justify-content: center;
+  padding: 25px;
+  border: 2px solid blue;
+  .topcard__image {
+    padding: 5px;
+  }
+  .topcard__data {
+    .data_title {
+      font-weight: lighter;
+      font-size: 15px;
+    }
+    .data_value {
+      font-weight: bold;
+      font-size: 20px;
+    }
+  }
+}

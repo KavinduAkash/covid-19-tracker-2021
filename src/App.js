@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.style.scss';
 import { Row, Col } from 'reactstrap';
+import TopCard from "./components/top-card/TopCard.component";
 
 class App extends React.Component{
 
@@ -15,6 +16,7 @@ class App extends React.Component{
             <div className={'app__content'}>
                 <div className={'content'}>
                     <div className={'card-panel'}>
+                        <TopCard/>
                     </div>
                     <Row>
                         <Col sm={12} md={12} lg={8} xl={8}>
