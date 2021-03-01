@@ -33,6 +33,28 @@
         padding: 30px;
         box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
       }
+      .data-view-panel {
+        margin-top: 80px;
+        .sub-title {
+          font-weight: lighter;
+          font-size: 16px;
+        }
+        .country-live-cases{
+          width: 100%;
+          background: white;
+          border-radius: 10px;
+          padding: 30px;
+          box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+          .country-live-case-list {
+            height: 400px;
+            overflow-y: scroll;
+          }
+        }
+        .input {
+          width: 100%!important;
+          margin: 10px 0px;
+        }
+      }
     }
   }
 

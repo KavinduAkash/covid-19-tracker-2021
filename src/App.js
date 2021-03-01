@@ -3,6 +3,8 @@ import './App.style.scss';
 import { Row, Col } from 'reactstrap';
 import TopCard from "./components/top-card/TopCard.component";
 import TopCardSelect from "./components/top-card-select/topcardselect.component";
+import {Input} from "semantic-ui-react";
+import LiveCaseCountryCard from "./components/live-case-country-card/LiveCaseCountryCard.component";
 
 class App extends React.Component{
 
@@ -32,14 +34,38 @@ class App extends React.Component{
                             </Col>
                         </Row>
                     </div>
-                    <Row>
-                        {/*<Col sm={12} md={12} lg={8} xl={8}>*/}
-                        {/*    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea facere fugit itaque modi perspiciatis qui quo tenetur? Dolorum ex itaque nemo odio odit omnis, quasi, quod, reiciendis ullam vero voluptatibus.*/}
-                        {/*</Col>*/}
-                        {/*<Col sm={12} md={12} lg={4} xl={4}>*/}
-                        {/*    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias architecto aut corporis, dolorem fuga laudantium magni praesentium quam reiciendis rem repellendus sit tempore vel. Aliquam ducimus et nemo tenetur velit.*/}
-                        {/*</Col>*/}
-                    </Row>
+                    <div className={'data-view-panel'}>
+                        <Row>
+                            <Col sm={12} md={12} lg={8} xl={8}>
+                            </Col>
+                            <Col sm={12} md={12} lg={4} xl={4}>
+                                <div className={'country-live-cases'}>
+                                    <div className={'sub-title'}>
+                                        Live cases by country
+                                    </div>
+                                    <div>
+                                        <Input
+                                            icon={{ name: 'search', circular: true, link: true }}
+                                            placeholder='Search...'
+                                        />
+                                    </div>
+                                    <div className={'country-live-case-list'}>
+                                        <LiveCaseCountryCard/>
+                                        <LiveCaseCountryCard/>
+                                        <LiveCaseCountryCard/>
+                                        <LiveCaseCountryCard/>
+                                        <LiveCaseCountryCard/>
+                                        <LiveCaseCountryCard/>
+                                        <LiveCaseCountryCard/>
+                                        <LiveCaseCountryCard/>
+                                    </div>
+                                    <div className={'sub-title'}>
+                                        Live cases by country
+                                    </div>
+                                </div>
+                            </Col>
+                        </Row>
+                    </div>
                 </div>
             </div>
             <div className={'app__footer'}>
