@@ -19,7 +19,7 @@
 
   .app__content {
     width: 100vw;
-    min-height: 60vh;
+    min-height: 50vh;
     position: relative;
     top: -155px;
     .content {
@@ -42,6 +42,15 @@
         .mg {
           margin: 20px 0;
         }
+
+        .world-case-map {
+          width: 100%;
+          background: white;
+          border-radius: 10px;
+          padding: 30px 30px 15px 30px;
+          box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+        }
+
         .country-live-cases{
           width: 100%;
           background: white;
@@ -49,13 +58,30 @@
           padding: 30px;
           box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
           .country-live-case-list {
-            height: 400px;
+            height: 450px;
             overflow-y: scroll;
           }
         }
         .input {
           width: 100%!important;
           margin: 10px 0px;
+        }
+        .world-wide-new-cases {
+          width: 100%;
+          background: white;
+          border-radius: 10px;
+          padding: 30px;
+          box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+          margin-top: 50px;
+          .world-wide-new-cases-chart {
+            //position: relative;
+            //div {
+            //  height: 10% !important;
+            //    .chartjs-render-monitor {
+            //      height: 10% !important;
+            //    }
+            //}
+          }
         }
       }
     }
