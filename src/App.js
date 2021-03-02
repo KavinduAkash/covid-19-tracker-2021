@@ -10,7 +10,14 @@ import MapComponent from "./components/map/Map.component";
 
 class App extends React.Component{
 
-  render() {
+    componentDidMount() {
+        this.getCountries();
+    }
+
+    getCountries = () => {
+    };
+
+    render() {
     return (
         <div className="app">
             <div className={'app__top'}>
