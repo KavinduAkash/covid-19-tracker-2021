@@ -7,17 +7,67 @@ import {Input} from "semantic-ui-react";
 import LiveCaseCountryCard from "./components/live-case-country-card/LiveCaseCountryCard.component";
 import Linerchart from "./components/charts/Linerchart.component";
 import MapComponent from "./components/map/Map.component";
+import axios from "axios";
 
 class App extends React.Component{
 
+    state={
+      countries:[],
+      countries_details:[],
+    };
+
     componentDidMount() {
         this.getCountries();
+        this.getCountriesDetails();
     }
 
     getCountries = () => {
+        axios.get('https://disease.sh/v3/covid-19/countries').then(res=>{
+            console.log(res);
+            if(res.status===200) {
+                let data = res.data;
+                let countries_list = [];
+                if(data) {
+                    data.map((result, i)=>{
+                       let obj = {
+                           key: i,
+                           value: result.countryInfo.iso3,
+                           text: result.country,
+                       };
+                       countries_list.push(obj);
+                    });
+                }
+                this.setState({
+                    countries: countries_list
+                });
+            }
+        }).catch(err=>{
+            console.log(err);
+        });
+    };
+    getCountriesDetails = () => {
+        axios.get('https://disease.sh/v3/covid-19/countries').then(res=>{
+            if(res.status===200) {
+                let data = res.data;
+                let countries_list = [];
+                if(data) {
+                    data.map((result, i)=>{
+                       countries_list.push(result);
+                    });
+                }
+
+                console.log("L: ", countries_list);
+                this.setState({
+                    countries_details: countries_list
+                });
+            }
+        }).catch(err=>{
+            console.log(err);
+        });
     };
 
     render() {
+        let {countries, countries_details} = this.state;
     return (
         <div className="app">
             <div className={'app__top'}>
@@ -30,7 +80,7 @@ class App extends React.Component{
                     <div className={'card-panel'}>
                         <Row>
                             <Col sm={12} md={12} lg={3} xl={3}>
-                                <TopCardSelect/>
+                                <TopCardSelect data={countries}/>
                             </Col>
                             <Col sm={12} md={12} lg={3} xl={3}>
                                 <TopCard index={1} title={'Coronavirus Cases'}/>
@@ -65,14 +115,9 @@ class App extends React.Component{
                                         />
                                     </div>
                                     <div className={'country-live-case-list'}>
-                                        <LiveCaseCountryCard/>
-                                        <LiveCaseCountryCard/>
-                                        <LiveCaseCountryCard/>
-                                        <LiveCaseCountryCard/>
-                                        <LiveCaseCountryCard/>
-                                        <LiveCaseCountryCard/>
-                                        <LiveCaseCountryCard/>
-                                        <LiveCaseCountryCard/>
+                                        {
+                                            countries_details.map((result, i) => <LiveCaseCountryCard key={i} data={result}/>)
+                                        }
                                     </div>
                                 </div>
                             </Col>
