@@ -14,7 +14,7 @@ class TopCardSelect extends React.Component {
                 <div  className={'topcardselect__data'}>
                     <div className={'data_title'}>Location</div>
                     <div className={'data_select'}>
-                        <Select placeholder='Select a location' options={countryOptions} />
+                        <Select search={true} placeholder='Select a location' options={countryOptions} />
                     </div>
                     <div className={'data_desc'}>Please, select your location</div>
                 </div>
