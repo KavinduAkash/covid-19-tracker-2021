@@ -4,7 +4,6 @@ import './liveCaseCountryCard.style.scss';
 class LiveCaseCountryCard extends React.Component {
     render() {
         let data = this.props.data;
-        console.log("Name: ", data.country);
         return(
             <div className={'live-case-country-card'}>
                 <div className={'country-details'}>

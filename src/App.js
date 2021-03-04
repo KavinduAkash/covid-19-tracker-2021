@@ -14,6 +14,14 @@ class App extends React.Component{
     state={
       countries:[],
       countries_details:[],
+
+      //top-card
+      tc_today_corona_cases: 0,
+      tc_today_recovered: 0,
+      tc_today_deaths: 0,
+      tc_corona_cases: 0,
+      tc_recovered: 0,
+      tc_deaths: 0,
     };
 
     componentDidMount() {
@@ -56,7 +64,6 @@ class App extends React.Component{
                     });
                 }
 
-                console.log("L: ", countries_list);
                 this.setState({
                     countries_details: countries_list
                 });
@@ -66,80 +73,112 @@ class App extends React.Component{
         });
     };
 
+    callDateByCountryIso3 = (iso3) => {
+        axios.get(`https://disease.sh/v3/covid-19/countries/${iso3}?strict=true`).then(res=>{
+            if(res.status===200) {
+                let data = res.data;
+                if(data) {
+                    this.setState({
+                        tc_today_corona_cases: data.todayCases,
+                        tc_today_recovered: data.cases,
+                        tc_today_deaths: data.todayDeaths,
+                        tc_corona_cases: data.deaths,
+                        tc_recovered: data.todayRecovered,
+                        tc_deaths: data.recovered,
+                    })
+                }
+            }
+        }).catch(err=>{
+            console.log(err);
+        });
+    };
+
     render() {
-        let {countries, countries_details} = this.state;
-    return (
-        <div className="app">
-            <div className={'app__top'}>
-                <div className={'header'}>
-                    COVID 19 Live TRACKER <span className={'header-light'}>by kavinduakash.com</span>
-                </div>
-            </div>
-            <div className={'app__content'}>
-                <div id={'appcontent'} className={'content'}>
-                    <div className={'card-panel'}>
-                        <Row>
-                            <Col sm={12} md={12} lg={3} xl={3}>
-                                <TopCardSelect data={countries}/>
-                            </Col>
-                            <Col sm={12} md={12} lg={3} xl={3}>
-                                <TopCard index={1} title={'Coronavirus Cases'}/>
-                            </Col>
-                            <Col sm={12} md={12} lg={3} xl={3}>
-                                <TopCard index={2} title={'Recovered'}/>
-                            </Col>
-                            <Col sm={12} md={12} lg={3} xl={3}>
-                                <TopCard index={3} title={'Deaths'}/>
-                            </Col>
-                        </Row>
+        let {countries, countries_details, tc_corona_cases, tc_deaths, tc_recovered, tc_today_corona_cases, tc_today_deaths, tc_today_recovered} = this.state;
+        let cases = {
+            today: tc_today_corona_cases,
+            total: tc_corona_cases
+        };
+        let recovered = {
+            today: tc_today_recovered,
+            total: tc_recovered
+        };
+        let deaths = {
+            today: tc_today_deaths,
+            total: tc_deaths
+        };
+        return (
+            <div className="app">
+                <div className={'app__top'}>
+                    <div className={'header'}>
+                        COVID 19 Live TRACKER <span className={'header-light'}>by kavinduakash.com</span>
                     </div>
-                    <div className={'data-view-panel'}>
-                        <Row>
-                            <Col sm={12} md={12} lg={8} xl={8}>
-                                <div className={'world-case-map'}>
-                                    <div className={'sub-title'}>
-                                        Live cases by country
+                </div>
+                <div className={'app__content'}>
+                    <div id={'appcontent'} className={'content'}>
+                        <div className={'card-panel'}>
+                            <Row>
+                                <Col sm={12} md={12} lg={3} xl={3}>
+                                    <TopCardSelect data={countries} action={this.callDateByCountryIso3}/>
+                                </Col>
+                                <Col sm={12} md={12} lg={3} xl={3}>
+                                    <TopCard index={1} title={'Coronavirus Cases'} data={cases} />
+                                </Col>
+                                <Col sm={12} md={12} lg={3} xl={3}>
+                                    <TopCard index={2} title={'Recovered'} data={recovered} />
+                                </Col>
+                                <Col sm={12} md={12} lg={3} xl={3}>
+                                    <TopCard index={3} title={'Deaths'} data={deaths} />
+                                </Col>
+                            </Row>
+                        </div>
+                        <div className={'data-view-panel'}>
+                            <Row>
+                                <Col sm={12} md={12} lg={8} xl={8}>
+                                    <div className={'world-case-map'}>
+                                        <div className={'sub-title'}>
+                                            Live cases by country
+                                        </div>
+                                        <MapComponent/>
                                     </div>
-                                    <MapComponent/>
+                                </Col>
+                                <Col sm={12} md={12} lg={4} xl={4}>
+                                    <div className={'country-live-cases'}>
+                                        <div className={'sub-title'}>
+                                            Live cases by country
+                                        </div>
+                                        <div>
+                                            <Input
+                                                icon={{ name: 'search', circular: true, link: true }}
+                                                placeholder='Search...'
+                                            />
+                                        </div>
+                                        <div className={'country-live-case-list'}>
+                                            {
+                                                countries_details.map((result, i) => <LiveCaseCountryCard key={i} data={result}/>)
+                                            }
+                                        </div>
+                                    </div>
+                                </Col>
+                            </Row>
+                            <div className={'world-wide-new-cases'}>
+                                <div className={'sub-title mg'}>
+                                    Worldwide new cases
                                 </div>
-                            </Col>
-                            <Col sm={12} md={12} lg={4} xl={4}>
-                                <div className={'country-live-cases'}>
-                                    <div className={'sub-title'}>
-                                        Live cases by country
-                                    </div>
-                                    <div>
-                                        <Input
-                                            icon={{ name: 'search', circular: true, link: true }}
-                                            placeholder='Search...'
-                                        />
-                                    </div>
-                                    <div className={'country-live-case-list'}>
-                                        {
-                                            countries_details.map((result, i) => <LiveCaseCountryCard key={i} data={result}/>)
-                                        }
-                                    </div>
+                                <div className={'world-wide-new-cases-chart'}>
+                                    <Linerchart/>
                                 </div>
-                            </Col>
-                        </Row>
-                        <div className={'world-wide-new-cases'}>
-                            <div className={'sub-title mg'}>
-                                Worldwide new cases
-                            </div>
-                            <div className={'world-wide-new-cases-chart'}>
-                                <Linerchart/>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className={'app__footer'}>
-                <div className={'footer'}>
-                    COVID 19 Live TRACKER <span className={'footer-light'}>by kavinduakash.com</span>
+                <div className={'app__footer'}>
+                    <div className={'footer'}>
+                        COVID 19 Live TRACKER <span className={'footer-light'}>by kavinduakash.com</span>
+                    </div>
                 </div>
             </div>
-        </div>
-    )
+        )
   }
 }
 
