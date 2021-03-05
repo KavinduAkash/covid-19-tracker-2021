@@ -12,7 +12,13 @@ import axios from "axios";
 class App extends React.Component{
 
     state={
-      countries: [],
+      countries: [
+          {
+              key: -1,
+              value: "global",
+              text: "Global",
+          }
+      ],
       countries_details: [],
       searchable_text: "",
 
@@ -28,6 +34,7 @@ class App extends React.Component{
     };
 
     componentDidMount() {
+        this.callDateByCountryIso3("global");
         this.getCountries();
         this.getCountriesDetails();
         this.getGlobalHistoryDetails();
