@@ -1,6 +1,6 @@
 import React from 'react';
 import { Line } from 'react-chartjs-2';
-import * as utils from '../../utils/prepare_line_chart_data.util';
+import * as utils from '../../utils/utils';
 
 class Linerchart extends React.Component {
     render() {
