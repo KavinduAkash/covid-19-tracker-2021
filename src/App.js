@@ -23,11 +23,14 @@ class App extends React.Component{
       tc_corona_cases: 0,
       tc_recovered: 0,
       tc_deaths: 0,
+
+      last_30_days_deaths_details: null
     };
 
     componentDidMount() {
         this.getCountries();
         this.getCountriesDetails();
+        this.getGlobalHistoryDetails();
     }
 
     getCountries = () => {
@@ -94,6 +97,21 @@ class App extends React.Component{
         });
     };
 
+    getGlobalHistoryDetails = () => {
+        axios.get(`https://disease.sh/v3/covid-19/historical/all?lastdays=30`).then(res=>{
+            if(res.status===200) {
+                let data = res.data;
+                if(data) {
+                    this.setState({
+                        last_30_days_deaths_details: data.deaths
+                    });
+                }
+            }
+        }).catch(err=>{
+            console.log(err);
+        });
+    };
+
     filterLiveCasesByCountries = e => {
         let value = (e.target.value).toLowerCase();
         this.setState({
@@ -102,7 +120,7 @@ class App extends React.Component{
     };
 
     render() {
-        let {countries, countries_details, tc_corona_cases, tc_deaths, tc_recovered, tc_today_corona_cases, tc_today_deaths, tc_today_recovered} = this.state;
+        let {countries, countries_details, tc_corona_cases, tc_deaths, tc_recovered, tc_today_corona_cases, tc_today_deaths, tc_today_recovered, last_30_days_deaths_details} = this.state;
 
         let cases = {
             today: tc_today_corona_cases,
@@ -190,10 +208,10 @@ class App extends React.Component{
                             </Row>
                             <div className={'world-wide-new-cases'}>
                                 <div className={'sub-title mg'}>
-                                    Worldwide new cases
+                                    Last 30 days death cases
                                 </div>
                                 <div className={'world-wide-new-cases-chart'}>
-                                    <Linerchart/>
+                                    <Linerchart data={last_30_days_deaths_details}/>
                                 </div>
                             </div>
                         </div>
