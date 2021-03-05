@@ -12,8 +12,9 @@ import axios from "axios";
 class App extends React.Component{
 
     state={
-      countries:[],
-      countries_details:[],
+      countries: [],
+      countries_details: [],
+      searchable_text: "",
 
       //top-card
       tc_today_corona_cases: 0,
@@ -93,6 +94,13 @@ class App extends React.Component{
         });
     };
 
+    filterLiveCasesByCountries = e => {
+        let value = (e.target.value).toLowerCase();
+        this.setState({
+            searchable_text: value
+        });
+    };
+
     render() {
         let {countries, countries_details, tc_corona_cases, tc_deaths, tc_recovered, tc_today_corona_cases, tc_today_deaths, tc_today_recovered} = this.state;
 
@@ -108,6 +116,23 @@ class App extends React.Component{
             today: tc_today_deaths,
             total: tc_deaths
         };
+
+        let countries_search = [];
+        if(this.state.searchable_text !== "" && this.state.searchable_text !== null && this.state.searchable_text !== undefined) {
+            countries_search = [];
+            if(countries_details.length !== 0) {
+                countries_details.map((e,i)=>{
+                    let pattern = new RegExp('^'+this.state.searchable_text);
+                    let r = pattern.test((e.country).toLowerCase());
+                    if(r) {
+                        countries_search.push(e);
+                    }
+                });
+            }
+        } else {
+            countries_search = countries_details
+        }
+
         return (
             <div className="app">
                 <div className={'app__top'}>
@@ -152,11 +177,12 @@ class App extends React.Component{
                                             <Input
                                                 icon={{ name: 'search', circular: true, link: true }}
                                                 placeholder='Search...'
+                                                onChange={this.filterLiveCasesByCountries}
                                             />
                                         </div>
                                         <div className={'country-live-case-list'}>
                                             {
-                                                countries_details.map((result, i) => <LiveCaseCountryCard key={i} data={result}/>)
+                                                countries_search.map((result, i) => <LiveCaseCountryCard key={i} data={result}/>)
                                             }
                                         </div>
                                     </div>
