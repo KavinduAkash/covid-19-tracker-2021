@@ -40,6 +40,13 @@ class App extends React.Component{
                 let data = res.data;
                 let countries_list = [];
                 if(data) {
+                    let obj_st = {
+                        key: -1,
+                        value: "global",
+                        text: "Global",
+                    };
+                    countries_list.push(obj_st);
+
                     data.map((result, i)=>{
                        let obj = {
                            key: i,
@@ -78,23 +85,43 @@ class App extends React.Component{
     };
 
     callDateByCountryIso3 = (iso3) => {
-        axios.get(`https://disease.sh/v3/covid-19/countries/${iso3}?strict=true`).then(res=>{
-            if(res.status===200) {
-                let data = res.data;
-                if(data) {
-                    this.setState({
-                        tc_today_corona_cases: data.todayCases,
-                        tc_today_recovered: data.todayRecovered,
-                        tc_today_deaths: data.todayDeaths,
-                        tc_corona_cases: data.cases,
-                        tc_recovered: data.recovered,
-                        tc_deaths: data.deaths,
-                    })
+        if(iso3 === "global") {
+            axios.get(`https://disease.sh/v3/covid-19/all`).then(res => {
+                if (res.status === 200) {
+                    let data = res.data;
+                    if (data) {
+                        this.setState({
+                            tc_today_corona_cases: data.todayCases,
+                            tc_today_recovered: data.todayRecovered,
+                            tc_today_deaths: data.todayDeaths,
+                            tc_corona_cases: data.cases,
+                            tc_recovered: data.recovered,
+                            tc_deaths: data.deaths,
+                        })
+                    }
                 }
-            }
-        }).catch(err=>{
-            console.log(err);
-        });
+            }).catch(err => {
+                console.log(err);
+            });
+        } else {
+            axios.get(`https://disease.sh/v3/covid-19/countries/${iso3}?strict=true`).then(res => {
+                if (res.status === 200) {
+                    let data = res.data;
+                    if (data) {
+                        this.setState({
+                            tc_today_corona_cases: data.todayCases,
+                            tc_today_recovered: data.todayRecovered,
+                            tc_today_deaths: data.todayDeaths,
+                            tc_corona_cases: data.cases,
+                            tc_recovered: data.recovered,
+                            tc_deaths: data.deaths,
+                        })
+                    }
+                }
+            }).catch(err => {
+                console.log(err);
+            });
+        }
     };
 
     getGlobalHistoryDetails = () => {
