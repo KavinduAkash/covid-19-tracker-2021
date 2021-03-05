@@ -9,7 +9,7 @@ class TopCard extends React.Component{
         let index = this.props.index;
         let title = this.props.title;
         let today = this.props.data.today;
-        let total = this.props.total;
+        let total = this.props.data.total;
         return(
             <div className={'topcard'}>
                 <div className={'topcard__image'}>
@@ -20,7 +20,7 @@ class TopCard extends React.Component{
                 <div  className={'topcard__data'}>
                     <div className={'data_title'}>{title}</div>
                     <div className={'data_value'}>{total}</div>
-                    <div className={'data_desc'}>{today}{" "}Total</div>
+                    <div className={'data_desc'}>{today}{" "}Today</div>
                 </div>
             </div>
         )

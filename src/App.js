@@ -80,11 +80,11 @@ class App extends React.Component{
                 if(data) {
                     this.setState({
                         tc_today_corona_cases: data.todayCases,
-                        tc_today_recovered: data.cases,
+                        tc_today_recovered: data.todayRecovered,
                         tc_today_deaths: data.todayDeaths,
-                        tc_corona_cases: data.deaths,
-                        tc_recovered: data.todayRecovered,
-                        tc_deaths: data.recovered,
+                        tc_corona_cases: data.cases,
+                        tc_recovered: data.recovered,
+                        tc_deaths: data.deaths,
                     })
                 }
             }
@@ -95,6 +95,7 @@ class App extends React.Component{
 
     render() {
         let {countries, countries_details, tc_corona_cases, tc_deaths, tc_recovered, tc_today_corona_cases, tc_today_deaths, tc_today_recovered} = this.state;
+
         let cases = {
             today: tc_today_corona_cases,
             total: tc_corona_cases
