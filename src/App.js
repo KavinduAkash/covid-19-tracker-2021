@@ -30,7 +30,11 @@ class App extends React.Component{
       tc_recovered: 0,
       tc_deaths: 0,
 
-      last_30_days_deaths_details: null
+      last_30_days_deaths_details: null,
+
+      map_center: [51.505, -0.09],
+      map_zoom: 4,
+      selected_countries: []
     };
 
     componentDidMount() {
@@ -110,6 +114,18 @@ class App extends React.Component{
             }).catch(err => {
                 console.log(err);
             });
+            axios.get(`https://disease.sh/v3/covid-19/countries`).then(res => {
+                if (res.status === 200) {
+                    let data = res.data;
+                    if (data) {
+                        this.setState({
+                            selected_countries: data
+                        })
+                    }
+                }
+            }).catch(err => {
+                console.log(err);
+            });
         } else {
             axios.get(`https://disease.sh/v3/covid-19/countries/${iso3}?strict=true`).then(res => {
                 if (res.status === 200) {
@@ -122,6 +138,9 @@ class App extends React.Component{
                             tc_corona_cases: data.cases,
                             tc_recovered: data.recovered,
                             tc_deaths: data.deaths,
+                            map_center: [data.countryInfo.lat, data.countryInfo.long],
+                            map_zoom: 4,
+                            selected_countries: [data]
                         })
                     }
                 }
@@ -154,7 +173,7 @@ class App extends React.Component{
     };
 
     render() {
-        let {countries, countries_details, tc_corona_cases, tc_deaths, tc_recovered, tc_today_corona_cases, tc_today_deaths, tc_today_recovered, last_30_days_deaths_details} = this.state;
+        let {countries, countries_details, tc_corona_cases, tc_deaths, tc_recovered, tc_today_corona_cases, tc_today_deaths, tc_today_recovered, last_30_days_deaths_details, map_center, map_zoom, selected_countries} = this.state;
 
         let cases = {
             today: tc_today_corona_cases,
@@ -217,7 +236,7 @@ class App extends React.Component{
                                         <div className={'sub-title'}>
                                             Live cases by country
                                         </div>
-                                        <MapComponent/>
+                                        <MapComponent map_center={map_center} map_zoom={map_zoom} countries={selected_countries} />
                                     </div>
                                 </Col>
                                 <Col sm={12} md={12} lg={4} xl={4}>

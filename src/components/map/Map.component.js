@@ -1,23 +1,19 @@
 import React from 'react';
 import 'leaflet/dist/leaflet.css';
 import './map.style.scss';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import * as utils from '../../utils/utils';
 
 class MapComponent extends React.Component {
     render() {
+        console.log("MC: ", this.props.map_center);
+        console.log("MZ: ", this.props.map_zoom);
+
+        let map = utils.map(this.props.map_center, this.props.map_zoom, this.props.countries, "cases");
+
+
         return(
             <div className={'map'}>
-                <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
-                    <TileLayer
-                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
-                    <Marker position={[51.505, -0.09]}>
-                        <Popup>
-                            A pretty CSS3 popup. <br /> Easily customizable.
-                        </Popup>
-                    </Marker>
-                </MapContainer>
+                {map}
             </div>
         )
     }

@@ -1,4 +1,4 @@
-import {Circle, Popup} from "react-leaflet";
+import {Circle, MapContainer, Popup, TileLayer} from "react-leaflet";
 
 const casesTypeColors = {
     cases: {
@@ -52,4 +52,17 @@ export const showDataOnMap = (data, caseType="cases") => {
         </Circle>
     });
     return null;
+};
+
+export const map = (center, zoom, countries, caseType) => {
+
+    console.log("CC: ", countries);
+
+    return <MapContainer center={center} zoom={zoom} scrollWheelZoom={false}>
+        <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {showDataOnMap(countries, caseType)}
+    </MapContainer>
 };
